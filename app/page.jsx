@@ -1,10 +1,11 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Navigation from "@/components/Navigation";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
 
 export default function Home() {
   return (
-    <main>
-      <div>Hello from Stripe App</div>
-    </main>
+    <Container>
+      <Navigation />
+    </Container>
   );
 }
