@@ -4,7 +4,7 @@ import { Card, Button, Row, Col, Form } from "react-bootstrap";
 
 const ProductCard = ({ title, price }) => {
   return (
-    <Card>
+    <Card className="m-3">
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>${price}</Card.Text>
