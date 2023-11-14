@@ -3,7 +3,7 @@
 import { createContext, useState } from "react";
 import { getProductData } from "@/constants";
 
-const ShoppingCartContext = createContext({
+export const ShoppingCartContext = createContext({
   items: [],
   getProductQuantity: () => {},
   incrementCartQuantity: () => {},
@@ -26,10 +26,10 @@ const ShoppingCartProvider = ({ children }) => {
   };
 
   const incrementCartQuantity = (id) => {
-    const productExists = getProductQuantity(id);
+    const quantity = getProductQuantity(id);
 
-    if (!productExists) {
-      setCartProducts([
+    if (!quantity) {
+      setCartProducts((cartProducts) => [
         ...cartProducts,
         {
           id: id,
