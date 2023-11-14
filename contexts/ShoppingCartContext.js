@@ -37,12 +37,36 @@ const ShoppingCartProvider = ({ children }) => {
         },
       ]);
     } else {
-      cartProducts.map((product) => {
-        product.id === id
-          ? { ...product, quantity: product.quantity + 1 }
-          : product;
-      });
+      setCartProducts((cartProducts) =>
+        cartProducts.map((product) => {
+          product.id === id
+            ? { ...product, quantity: product.quantity + 1 }
+            : product;
+        })
+      );
     }
+  };
+
+  const decrementItemQuantity = (id) => {
+    const quantity = getProductQuantity(id);
+
+    if (quantity === 1) {
+      removeFromCart(id);
+    } else {
+      setCartProducts((cartProducts) =>
+        cartProducts.map((product) => {
+          product.id === id
+            ? { ...product, quantity: product.quantity - 1 }
+            : product;
+        })
+      );
+    }
+  };
+
+  const removeFromCart = (id) => {
+    setCartProducts((cartProducts) =>
+      cartProducts.filter((product) => product.id !== id)
+    );
   };
 
   const contextValue = {
