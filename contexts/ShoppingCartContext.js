@@ -16,7 +16,6 @@ const ShoppingCartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
 
   const getProductQuantity = (id) => {
-    console.log(cartProducts);
     const quantity = cartProducts.find(
       (product) => product?.id === id
     )?.quantity;
@@ -30,7 +29,6 @@ const ShoppingCartProvider = ({ children }) => {
 
   const incrementCartQuantity = (id) => {
     const quantity = getProductQuantity(id);
-    console.log("quantity:", quantity);
     if (!quantity) {
       setCartProducts((cartProducts) => [
         ...cartProducts,
