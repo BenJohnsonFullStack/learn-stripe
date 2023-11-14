@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { products, getProductData } from "@/constants";
+import { getProductData } from "@/constants";
 
 const ShoppingCartContext = createContext({
   items: [],
@@ -94,3 +94,5 @@ const ShoppingCartProvider = ({ children }) => {
     </ShoppingCartContext.Provider>
   );
 };
+
+export default ShoppingCartProvider;

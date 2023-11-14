@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navigation from "@/components/Navigation";
 import { Container } from "react-bootstrap";
+import ShoppingCartProvider from "@/contexts/ShoppingCartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Container>
-          <Navigation />
-        </Container>
+        <ShoppingCartProvider>
+          <Container>
+            <Navigation />
+          </Container>
+        </ShoppingCartProvider>
         {children}
       </body>
     </html>
