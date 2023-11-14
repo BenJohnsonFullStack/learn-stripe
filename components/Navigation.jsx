@@ -4,9 +4,9 @@ import { Button, Container, Navbar, Modal } from "react-bootstrap";
 import { useState } from "react";
 
 const Navigation = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => setModalOpen((prevState) => !prevState);
+  const toggleModal = () => setIsModalOpen((prevState) => !prevState);
 
   return (
     <>
@@ -18,7 +18,15 @@ const Navigation = () => {
         </Navbar.Collapse>
       </Navbar>
 
-      <Modal show={modalOpen} onHide={toggleModal} />
+      <Modal show={isModalOpen} onHide={toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Shopping Cart</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <h3>This is the Cart</h3>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
