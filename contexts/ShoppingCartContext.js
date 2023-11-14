@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { products } from "@/constants";
+import { products, getProductData } from "@/constants";
 
 const ShoppingCartContext = createContext({
   items: [],
@@ -61,6 +61,16 @@ const ShoppingCartProvider = ({ children }) => {
         })
       );
     }
+  };
+
+  const getTotalCost = () => {
+    let totalCost = 0;
+    cartProducts.map((product) => {
+      const productData = getProductData(product.id);
+      totalCost += productData.price * product.quantity;
+    });
+
+    return totalCost;
   };
 
   const removeFromCart = (id) => {
