@@ -7,7 +7,7 @@ export const ShoppingCartContext = createContext({
   items: [],
   getProductQuantity: () => {},
   incrementCartQuantity: () => {},
-  decrementItemQuantity: () => {},
+  decrementCartQuantity: () => {},
   removeFromCart: () => {},
   getTotalCost: () => {},
 });
@@ -16,18 +16,21 @@ const ShoppingCartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
 
   const getProductQuantity = (id) => {
+    console.log(cartProducts);
     const quantity = cartProducts.find(
-      (product) => product.id === id
+      (product) => product?.id === id
     )?.quantity;
 
-    if (!quantity) return 0;
+    if (quantity === undefined) {
+      return 0;
+    }
 
     return quantity;
   };
 
   const incrementCartQuantity = (id) => {
     const quantity = getProductQuantity(id);
-
+    console.log("quantity:", quantity);
     if (!quantity) {
       setCartProducts((cartProducts) => [
         ...cartProducts,
@@ -37,28 +40,27 @@ const ShoppingCartProvider = ({ children }) => {
         },
       ]);
     } else {
-      setCartProducts((cartProducts) =>
-        cartProducts.map((product) => {
-          product.id === id
-            ? { ...product, quantity: product.quantity + 1 }
-            : product;
-        })
+      const updatedList = cartProducts.map((product) =>
+        product.id === id
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
       );
+      setCartProducts(updatedList);
     }
   };
 
-  const decrementItemQuantity = (id) => {
+  const decrementCartQuantity = (id) => {
     const quantity = getProductQuantity(id);
 
     if (quantity === 1) {
       removeFromCart(id);
     } else {
       setCartProducts((cartProducts) =>
-        cartProducts.map((product) => {
+        cartProducts.map((product) =>
           product.id === id
             ? { ...product, quantity: product.quantity - 1 }
-            : product;
-        })
+            : product
+        )
       );
     }
   };
@@ -83,7 +85,7 @@ const ShoppingCartProvider = ({ children }) => {
     items: cartProducts,
     getProductQuantity,
     incrementCartQuantity,
-    decrementItemQuantity,
+    decrementCartQuantity,
     removeFromCart,
     getTotalCost,
   };
