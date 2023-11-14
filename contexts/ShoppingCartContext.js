@@ -17,7 +17,7 @@ const ShoppingCartProvider = ({ children }) => {
 
   const getProductQuantity = (id) => {
     const quantity = cartProducts.find(
-      (product) => product?.id === id
+      (product) => product.id === id
     )?.quantity;
 
     if (quantity === undefined) {

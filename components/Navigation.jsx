@@ -1,12 +1,21 @@
 "use client";
 
 import { Button, Container, Navbar, Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ShoppingCartContext } from "@/contexts/ShoppingCartContext";
 
 const Navigation = () => {
+  const cart = useContext(ShoppingCartContext);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => setIsModalOpen((prevState) => !prevState);
+  const toggleModal = () =>
+    setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
+
+  const totalCartQuantity = cart.items.reduce(
+    (currCount, product) => currCount + product.quantity,
+    0
+  );
 
   return (
     <>
@@ -14,7 +23,7 @@ const Navigation = () => {
         <Navbar.Brand href="/">E-Commerce Store</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Button onClick={toggleModal}>Cart 0 Items</Button>
+          <Button onClick={toggleModal}>Cart {totalCartQuantity} Items</Button>
         </Navbar.Collapse>
       </Navbar>
 
