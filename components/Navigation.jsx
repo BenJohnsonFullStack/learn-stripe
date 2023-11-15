@@ -3,6 +3,7 @@
 import { Button, Container, Navbar, Modal } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { ShoppingCartContext } from "@/contexts/ShoppingCartContext";
+import CartProduct from "./CartProduct";
 
 const Navigation = () => {
   const cart = useContext(ShoppingCartContext);
@@ -33,7 +34,21 @@ const Navigation = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <h3>This is the Cart</h3>
+          {totalCartQuantity > 0 ? (
+            <>
+              <p>Items in Your Cart</p>
+              {cart.items.map((product) => (
+                <CartProduct key={product.id} {...product} />
+              ))}
+              <h4>Total: {cart.getTotalCost().toFixed(2)}</h4>
+
+              <Button variant="success">Checkout</Button>
+            </>
+          ) : (
+            <>
+              <h3>Cart is Empty</h3>
+            </>
+          )}
         </Modal.Body>
       </Modal>
     </>
