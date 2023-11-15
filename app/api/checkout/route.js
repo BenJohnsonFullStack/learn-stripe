@@ -1,12 +1,12 @@
 const stripe = require("stripe")(process.env.STRIPE_TEST_SECRET);
 
-export const POST = async (req, res) => {
+export const POST = async (req) => {
   // get items from body
-  const items = req.body.items;
+  const cart = await req.json();
 
   // refactor data to the shape Stripe expects
   let lineItems = [];
-  items.forEach((item) => {
+  cart.items.forEach((item) => {
     lineItems.push({
       price: item.id,
       quantity: item.quantity,
@@ -17,8 +17,8 @@ export const POST = async (req, res) => {
   const stripeSession = await stripe.checkout.sessions.create({
     line_items: lineItems,
     mode: "payment",
-    success_url: "http//localhost:3000/success",
-    cancel_url: "http//localhost:3000/cancel",
+    success_url: "http://localhost:3000/success",
+    cancel_url: "http://localhost:3000/cancel",
   });
 
   // return session URL

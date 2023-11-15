@@ -4,6 +4,7 @@ import { Button, Container, Navbar, Modal } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { ShoppingCartContext } from "@/contexts/ShoppingCartContext";
 import CartProduct from "./CartProduct";
+import { redirect } from "next/navigation";
 
 const Navigation = () => {
   const cart = useContext(ShoppingCartContext);
@@ -17,6 +18,20 @@ const Navigation = () => {
     (currCount, product) => currCount + product.quantity,
     0
   );
+
+  const checkout = async () => {
+    // console.log("items:", cart.items);
+    await fetch("http://localhost:3000/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: cart.items }),
+    }).then(async (res) => {
+      const response = await res.json();
+      window.location.assign(response.url);
+    });
+  };
 
   return (
     <>
@@ -42,7 +57,9 @@ const Navigation = () => {
               ))}
               <h4>Total: {cart.getTotalCost().toFixed(2)}</h4>
 
-              <Button variant="success">Checkout</Button>
+              <Button variant="success" onClick={checkout}>
+                Checkout
+              </Button>
             </>
           ) : (
             <>
