@@ -4,9 +4,10 @@ import { Button, Container, Navbar, Modal } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { ShoppingCartContext } from "@/contexts/ShoppingCartContext";
 import CartProduct from "./CartProduct";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Navigation = () => {
+  const router = useRouter();
   const cart = useContext(ShoppingCartContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,6 @@ const Navigation = () => {
   );
 
   const checkout = async () => {
-    // console.log("items:", cart.items);
     await fetch("http://localhost:3000/api/checkout", {
       method: "POST",
       headers: {
@@ -29,7 +29,7 @@ const Navigation = () => {
       body: JSON.stringify({ items: cart.items }),
     }).then(async (res) => {
       const response = await res.json();
-      window.location.assign(response.url);
+      router.push(response.url);
     });
   };
 
