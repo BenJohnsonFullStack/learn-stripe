@@ -1,31 +1,31 @@
 const products = [
   {
-    id: 1,
+    id: process.env.NEXT_PUBLIC_COFFEE_PRICE_ID,
     title: "Coffee",
     price: 4.99,
   },
   {
-    id: 2,
+    id: process.env.NEXT_PUBLIC_SUNGLASSES_PRICE_ID,
     title: "Sunglasses",
     price: 10.99,
   },
   {
-    id: 3,
+    id: process.env.NEXT_PUBLIC_BLANKET_PRICE_ID,
     title: "Blanket",
     price: 6.99,
   },
   {
-    id: 4,
+    id: process.env.NEXT_PUBLIC_VACUUM_PRICE_ID,
     title: "Vacuum",
     price: 37.99,
   },
   {
-    id: 5,
+    id: process.env.NEXT_PUBLIC_DOGLEASH_PRICE_ID,
     title: "Dog Leash",
     price: 14.99,
   },
   {
-    id: 6,
+    id: process.env.NEXT_PUBLIC_LAWNCHAIR_PRICE_ID,
     title: "Lawn Chair",
     price: 36.99,
   },

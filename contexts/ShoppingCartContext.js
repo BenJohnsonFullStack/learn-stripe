@@ -66,6 +66,7 @@ const ShoppingCartProvider = ({ children }) => {
   const getTotalCost = () => {
     let totalCost = 0;
     cartProducts.map((product) => {
+      // console.log(product.id);
       const productData = getProductData(product.id);
       totalCost += productData.price * product.quantity;
     });
